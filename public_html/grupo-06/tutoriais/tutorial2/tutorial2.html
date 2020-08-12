@@ -124,44 +124,62 @@
                         </p>
                     </div>
 
-
+                    <div class="cell small-12">
+                        &nbsp;                    
+                    </div>
+                    
+                    <div class="cell small-12">                                
+                        <h3> Apresentando o Exemplo</h3>
+                        <hr>
+                        <p> 
+                            Para o exemplo, vamos supor que a gente quer buscar detalhes de um filme
+                            específico de uma plataforma de streaming. Com GraphQL, a seguinte consulta 
+                            seria enviada ao servidor para retornar os detalhes do filme com o identificador "movie-1".
+                        </p>
+                        <textarea name="movieById" rows="11" cols="30">
+{
+    movieById(id: "movie-1"){
+        id
+        name
+        year
+        genre
+        director{
+            firstName
+            lastName            
+        }
+    }
+}
+                    </textarea>
                     <div class="cell small-12">
                         &nbsp;                    
                     </div>
                     <div class="cell small-12">                                
                         <h3> Criando o projeto</h3>
                         <hr>
-                        <p> Vamos trabalhar neste tutorial com projeto Maven. Para isso, vá ao meu "File" -> "New Project". </p>                        
+                        <p> Para o desenvolvimento deste tutorial, o Spring initializr será utilizado 
+                            (<a href="https://start.spring.io/.">https://start.spring.io</a>)
+                        </p>                      
 
-                        <p> Na janela que se abre, selecione a categoria "Maven" e, em seguida, "Java Application"
-
-                        <p> Preencha os campos conforme a figura abaixo e clique no botão "Finish".<p>
-                            <img src="imagem/imagen-01.png" width="752" height="472" alt="imagen-01"/>
-
-                        <p> Observe a estrutura do projeto criado na IDE:</p>
-                        <img src="imagem/imagen-02.png" width="318" height="211" alt="imagen-02"/>
+                        <img src="images/image-01.png" width="1031" height="937" alt="image-01"/>
 
                         <br>
+                        <br>                        
+                        <p>
+                            Após gerar o projeto e abrir, vamos modificar o arquivo 
+                            <code> build.gradle</code> deixando as dependências como o exemplo abaixo:
+                        </p>  
+
+                        <textarea name="build.gradle" rows="7" cols="82">
+dependencies {
+    implementation 'com.graphql-java:graphql-java:11.0'
+    implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0'
+    implementation 'com.google.guava:guava:26.0-jre'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+                        </textarea>
                         <br>
-                        <p> Observe agora o conteúdo do arquivo <code>pom.xml</code> do projeto </p>
-                        <textarea name="pom1" rows="15" cols="20">
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>br.unesp.rc</groupId>
-    <artifactId>JUnit5Tutorial</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
-</project></textarea>
-                        <br>
-                        <p> Vamos adicionar a dependência ao projeto. Essa operação pode ser realizada de duas maneiras: </p>
+                        <p> Vamos adicionar um novo arquivo <code>schema.graphqls</code> no diretório </p>
                         <p> 1 - Pela IDE, clicando com o botão direito sobre a pasta <code>Dependencies</code>; ou</p>
                         <p> 2 - Pelo site Maven repository.</p>
                         <br>
@@ -169,54 +187,24 @@
                             Os passos dessas operações não serão apresentados neste tutorial. Abaixo segue o 
                             <code>pom.xml</code> do projeto com as dependências:
                         </p>
-                        <textarea name="pom2" rows="47" cols="20">
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>br.unesp.rc</groupId>
-    <artifactId>JUnit5Tutorial</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <junit.jupiter.version>5.6.2</junit.jupiter.version>
-    </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
-        </plugins>
-    </build>
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>    
-</project></textarea>
+                        <textarea name="schema.graphqls" rows="16" cols="29">
+type Query {
+    movieById(id: ID): Movie 
+}
+    
+type Movie {
+    id: ID
+    name: String
+    genre: String
+    director: Director     
+}
+
+type Director {
+    id: ID
+    firstName: String
+    lastName: String
+}                            
+</textarea>
                     </div>
 
 
