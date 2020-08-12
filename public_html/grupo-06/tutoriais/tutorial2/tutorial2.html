@@ -179,14 +179,19 @@ dependencies {
 }
                         </textarea>
                         <br>
+                        
+                    </div>
+
+
+                    <div class="cell small-12">
+                        &nbsp;                    
+                    </div>
+                    <div class="cell small-12">
+                        <h3> Criando o exemplo</h3>
+                        <hr>
                         <p> Vamos adicionar um novo arquivo <code>schema.graphqls</code> no diretório </p>
-                        <p> 1 - Pela IDE, clicando com o botão direito sobre a pasta <code>Dependencies</code>; ou</p>
-                        <p> 2 - Pelo site Maven repository.</p>
-                        <br>
-                        <p> 
-                            Os passos dessas operações não serão apresentados neste tutorial. Abaixo segue o 
-                            <code>pom.xml</code> do projeto com as dependências:
-                        </p>
+                        <p> <code>src/main/resources</code> com o seguinte código:</p>
+                        <br>                       
                         <textarea name="schema.graphqls" rows="16" cols="29">
 type Query {
     movieById(id: ID): Movie 
@@ -204,80 +209,74 @@ type Director {
     firstName: String
     lastName: String
 }                            
+</textarea> 
+                    <p>Nesse schema é definido a nossa consulta (que retorna um tipo Movie)
+                        e os tipos Movie e Director.</p>                   
+                    <p>Agora para fazer a leitura deste schema vamos criar a classe 
+                        <code>GraphQLProvider</code> no pacote <code>com.graphqljava.tutorial.moviedetails</code>
+                        com um metodo <code>init</code>, que irá criar uma instância <code>GraphQL</code>:
+                    </p>
+                        <textarea name="GraphQLProvider" rows="50" cols="96">
+package com.graphqljava.tutorial.moviedetails;
+
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
+import graphql.GraphQL;
+import graphql.schema.GraphQLSchema;
+import graphql.schema.idl.RuntimeWiring;
+import graphql.schema.idl.SchemaGenerator;
+import graphql.schema.idl.SchemaParser;
+import graphql.schema.idl.TypeDefinitionRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.net.URL;
+
+import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
+
+@Component
+public class GraphQLProvider {
+
+
+    @Autowired
+    GraphQLDataFetchers graphQLDataFetchers;
+
+    private GraphQL graphQL;
+
+    @PostConstruct
+    public void init() throws IOException {
+        URL url = Resources.getResource("schema.graphqls");
+        String sdl = Resources.toString(url, Charsets.UTF_8);
+        GraphQLSchema graphQLSchema = buildSchema(sdl);
+        this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
+    }
+
+    private GraphQLSchema buildSchema(String sdl) {
+        TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
+        RuntimeWiring runtimeWiring = buildWiring();
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
+    }
+
+    private RuntimeWiring buildWiring() {
+        return RuntimeWiring.newRuntimeWiring()
+                .type(newTypeWiring("Query")
+                        .dataFetcher("movieById", graphQLDataFetchers.getBookByIdDataFetcher()))
+                .type(newTypeWiring("Movie")
+                        .dataFetcher("director", graphQLDataFetchers.getAuthorDataFetcher()))
+                .build();
+    }
+
+    @Bean
+    public GraphQL graphQL() {
+        return graphQL;
+    }
+
+}
 </textarea>
-                    </div>
-
-
-                    <div class="cell small-12">
-                        &nbsp;                    
-                    </div>
-                    <div class="cell small-12">
-                        <h3> Criando o exemplo</h3>
-                        <hr>
-                        <p> Vamos agora criar nosso exemplo...</p>
-                        <p> 
-                            Vamos criar uma classe <code> Vector.java </code> no pacote <code>br.unesp.rc.junit5tutorial</code> e implementar dois métodos. O primeiro recebe como parâmetro dois vetores do tipo <code>int</code> e retorno se estes são iguais. Já o segundo método recebe dois números inteiros (que representa o tamanho dos vetores) e retorna se os mesmos são iguais. Veja o código fonte desse implementação abaixo:</p>
-                        <textarea name="java1" rows="60" cols="20">
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.unesp.rc.junit5tutorial;
-
-/**
- *
- * @author frank
- */
-public class Vector {
-
-    private Vector() {
-    }
-
-    /**
-     * Verifica se os vetores são iguais
-     *
-     * @param a
-     * @param b
-     * 
-     * @return verdadeiro ou false
-     */
-    public static boolean equal(int[] a, int[] b) {
-        if ((a == null) || (b == null)) {
-            throw new IllegalArgumentException("null argument");
-        }
-
-        if (a.length != b.length) {
-            return false;
-        }
-
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] != b[i]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Verifica se os vetores têm o mesmo tamanho
-     * 
-     * @param a
-     * @param b
-     * 
-     * @return verdadeiro ou falso
-     */
-    public static boolean size(int a, int b) {
-
-        if ((a < 0) || (b < 0)) {
-            throw new IllegalArgumentException("Valores negativos não são permitidos!");
-        }
-
-        return a == b;
-
-    }
-}</textarea>
                         <p>
                             O próximo passo agora é criar os casos de testes para verificar se o código 
                             desenvolvido realmente funciona. 
