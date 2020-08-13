@@ -534,12 +534,21 @@
                         <div class="cell small-12">
                             <hr>                    
                         </div>
+
                         <div class="sequencia-1">
                             <div class="cell small-12">
-                                <p class = "bold"> NOME-DA-FUNCIONALIDADE-1</p>                    
+                                <p class = "bold">Diagrama de sequência da análise de uma frase </p>
+                            </div>
+                            <div class="cell small-12">
+                                <p>Descrição: Diagrama correspondente a sequência de funcionamento do processo que um usuário
+                                realiza para analisar um frase que ele deseja saber. O processo funciona com o usuário
+                                abrindo a página inicial e selecionando a opção de analisar, então uma segunda página com
+                                uma caixa de texto será fornecida e após ele digitar e submeter o texto, será carregado
+                                uma terceira página onde estará a análise e uma opção de classificar se o sentimento
+                                devolvido está correto ou não.</p>
                             </div>
                             <div class="cell small-12 center">
-                                <img src="diagrama-de-sequencia/diagrama-de-sequencia.png" width="465" height="344" alt="diagrama-de-sequencia"/>
+                                <img src="images/diagrama-de-sequencia/analise.png" alt="diagrama-de-sequencia"/>
                             </div>
                             <div class="cell small-12">
                                 <p class="bold">CÓDIGO FONTE: </p>
@@ -547,6 +556,29 @@
                                     <div class="callout">
                                         <pre>
 @startuml
+actor Usuário
+
+collections PaginaInicial
+collections PaginaReqAnalise
+collections PaginaAnaliseConcluida
+collections EnviaAnalise
+collections PréProcessaTexto
+collections GeraClasseAnalise
+collections BancoDeDados
+
+PaginaInicial --> PaginaInicial : aguarda_opcao()
+PaginaInicial --> PaginaReqAnalise : abre_pagina()
+PaginaReqAnalise --> PaginaReqAnalise : aguarda_texto()
+Usuário --> PaginaReqAnalise : digita_texto()
+Usuário --> PaginaAnaliseConcluida : aguarda_analise()
+PaginaReqAnalise --> EnviaAnalise : envia_texto()
+EnviaAnalise --> PréProcessaTexto : processa_texto()
+PaginaReqAnalise --> BancoDeDados : armazena_texto()
+PréProcessaTexto --> GeraClasseAnalise : classifica_texto()
+GeraClasseAnalise --> PaginaAnaliseConcluida : retorna_classe()
+PaginaAnaliseConcluida --> PaginaAnaliseConcluida: aguarda_certificacao_analise()
+Usuário --> PaginaAnaliseConcluida : classifica_analise_feita()
+PaginaAnaliseConcluida --> BancoDeDados : armazena_analise_concluida()
 
 @enduml
                                         </pre>
