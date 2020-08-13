@@ -265,7 +265,7 @@
                                 </li>
                             </ol>
                             <h6 class="tab40px"> B2 - Restrições do modelo.</h6>
-                            <ol class="tab80px"  start="8">
+                            <ol class="tab80px"  start="9">
                                 <li>
                                     <p class="tab40px">
                                         O sistema deve retreinar o modelo quando o número de frases classificadas
@@ -284,7 +284,7 @@
                                 </li>
                             </ol>
                             <h6 class="tab40px"> B3 - Impressão de Análises</h6>
-                            <ol class="tab80px" start="10">
+                            <ol class="tab80px" start="11">
                                 <li>
                                     <p class="tab40px"> 
                                         O sistema deve permitir ao usuários exportar as análises feitas por ele em formato
@@ -441,10 +441,17 @@
                                 <hr>                    
                             </div>
                             <div class="cell small-12">
-                                <p class = "bold"> NOME-DA-FUNCIONALIDADE-1</p>                    
+                                <p class = "bold"> Cadastro de Novo Sentimento</p>
+                            </div>
+                            <div class="cell small-12">
+                                <p>Descrição: Diagrama correspondente ao caso de uso de cadastrar um novo sentimento. Este procedimento
+                                se dá através do Administrador que cadastra os dados referentes ao um novo sentimento, este sentimento então
+                                é buscado para verifica a existencia ou não dele, caso seja um novo sentimento ele é autorizado a cadastrá-lo.
+                                Também são feitas verificações de imagem, certificando se está na proporção e tamanho correto. Também são
+                                verificadas as cores correspondente ao sentimento, devendo serem disponibilizadas pelo código hexadecimal.</p>
                             </div>
                             <div class="cell small-12 center">
-                                <img src="diagrama-de-caso-de-uso/diagrama-de-caso-de-uso.png" width="353" height="369" alt="diagrama-de-caso-de-uso"/>
+                                <img src="images/diagrama-de-casos-de-uso/cadastro_sentimento.png" width="700" alt="diagrama-de-caso-de-uso"/>
                             </div>
                             <div class="cell small-12">
                                 <p class="bold">CÓDIGO FONTE: </p>
@@ -452,6 +459,14 @@
                                     <div class="callout">
                                         <pre>
 @startuml
+
+actor Administrador
+
+Administrador --> (CadastrarSentimento) : <<dados do sentimento >>
+(CadastrarSentimento) --> (ConsultaSentimentosExistentes) : <<include>>
+(ConsultaSentimentosExistentes) --> (ValidaNovoSentimento) :<<include>>
+(CadastrarSentimento) --> (ValidaImagem) : <<include>>
+(CadastrarSentimento) --> (ValidaCor) : <<include>>
 
 @enduml
                                         </pre>
@@ -537,7 +552,7 @@
 
                         <div class="sequencia-1">
                             <div class="cell small-12">
-                                <p class = "bold">Diagrama de sequência da análise de uma frase </p>
+                                <p class = "bold">Análise do Sentimento de Frase </p>
                             </div>
                             <div class="cell small-12">
                                 <p>Descrição: Diagrama correspondente a sequência de funcionamento do processo que um usuário
