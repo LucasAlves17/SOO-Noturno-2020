@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="arquivos">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/public_html/grupo-00/tutoriais/tutorial3/arquivos/springtutorial.zip!/" />
+      <root url="jar://$PROJECT_DIR$/public_html/grupo-00/tutoriais/tutorial3/arquivos/springtutorialmogodb.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

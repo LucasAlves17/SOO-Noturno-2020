@@ -21,9 +21,10 @@
                                 <p class="right marginTop"><button class="button warning" data-open="exampleModal1">Sobre</button></p>
 
                                 <div class="reveal" id="exampleModal1" data-reveal>
-                                    <h1>Guia para Documentação</h1>
-                                    <p class="lead">Prof. Dr. Frank J. Affonso.</p>
-                                    <p>Projeto criado com ZURB Foundation 6.6.3.</p>
+                                    <h3>Tutorial prático de Análise de Sentimentos com Weka</h3>
+                                    <p class="lead">Desenvolvido por: Maicon Dall'Agnol.</p>
+                                    <p> <a href="mailto:maicon.dallagnol@unesp.br">E-mail</a></p>
+                                    <p><a href="http://lattes.cnpq.br/5998743489890410">CV Lattes</a></p>
                                     <button class="close-button" data-close aria-label="Close modal" type="button">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -56,19 +57,19 @@
                     <div class="cell small-12">
                         <div class="callout">
                             <div class="cell small-12">
-                                <h1> Desenvolvendo testes unitários com o framework JUnit 5 </h1>
+                                <h1> Análise de sentimentos com Weka </h1>
                             </div>
                             <div class="cell small-12">
                                 <hr>                    
                             </div>
                             <div class="cell small-12">
-                                <p class="bold"> GRUPO: 0 </p>
+                                <p class="bold"> GRUPO: 6 </p>
                             </div>                                
                             <div class="cell small-12">                    
                                 <ul>
-                                    <li><b>Frank José Affonso</b></li>
-                                    <li>José Affonso</li>
-                                    <li>José Frank</li>
+                                    <li>Lucas Martins Alves</li>
+                                    <li><b>Maicon Dall'agnol</b></li>
+                                    <li>Thiago Polycarpo Abreu de Oliveira</li>
                                 </ul>
                             </div>
 
@@ -81,9 +82,9 @@
                             </div>                      
                             <div class="cell small-12">
                                 <ul class="vertical menu">
-                                    <li><a href="https://www.oracle.com/technetwork/pt/java/javase/downloads/index.html">Java 8 ou superior - Versão 11.0.5 LTS</a></li>
-                                    <li><a href="https://netbeans.org/">Netbeans IDE - Versão 11.3</a></li>
-                                    <li><a href="https://junit.org/junit5/">JUnit 5 - Versão 5.6.2</a></li>
+                                    <li><a href="https://www.oracle.com/java/technologies/javase-jre8-downloads.html">Java 8</a></li>
+                                    <li><a href="https://waikato.github.io/weka-wiki/downloading_weka/">Weka - Versão 3.8.4 ou superior</a></li>
+                                    <li><a href="https://www.jetbrains.com/idea/download/">IntelliJ IDEA Community 2020.2 ou superior</a></li>
                                 </ul>
                             </div>                            
                         </div>
@@ -91,434 +92,417 @@
 
 
                     <!--collout-->
-                    <div class="cell small-12">
-                        &nbsp;                    
-                    </div>
                     <div class="cell small-12">                                
                         <h3> Objetivo</h3>
                         <hr>
                         <p> 
-                            O objetivo principal deste tutorial é apresentar aos alunos do BCC Unesp (Integral e Noturno) como  o framework 
-                            JUnit 5 pode ser utilizado na elaboração de testes unitários. Esse tutorial visa também mostra como a IDE 
-                            Netbeans 11.3 pode facilitar essa atividade.
+                            Este tutorial tem como objetivo apresentar uma descrição de um sistema de análise de sentimentos utilizando
+                            a ferramenta de Aprendizado de máquina Weka. Para isto serão feitas chamadas de um sistema em Java para o programa
+                            em si, no qual serão executados os procedimentos do aprendizado.
                         </p>
                         <p>
-                            Como objetivo secundário, e não menos importante, este tutorial visa auxiliar os alunos de ambas as turmas 
-                            na elaboração desse tipo de documento.
+                            Como objetivo secundário deste tutorial é dar suporte para a elaboração do Trabalho final da disciplina. Uma vez
+                            que este utiliza-se dos conceitos aqui apresentados para o desenvolvimento de um sistema completo de reconhecimento
+                            de sentimentos.
                         </p>
                     </div>
 
 
-                    <div class="cell small-12">
-                        &nbsp;                    
-                    </div>
                     <div class="cell small-12">                                
-                        <h3> O que é o JUnit 5?</h3>
+                        <h3> O que é uma Análise de Sentimentos?</h3>
                         <hr>
-                        <p> O JUnit 5 é composto por módulos de três subprojetos diferentes. </p>
-                        <p> 
-                            JUnit 5 = Plataforma JUnit + JUnit Jupiter + JUnit Vintage </p>
-                        <p> 
-                            A Plataforma JUnit serve como base para o lançamento de estruturas de teste na 
-                            JVM, além de definir a API TestEngine para desenvolver uma estrutura de teste 
-                            executada na plataforma. Além disso, a plataforma fornece um Console Launcher 
-                            para iniciar a plataforma a partir da linha de comando e um Runner baseado no JUnit 4 
-                            para executar qualquer TestEngine na plataforma em um ambiente baseado no JUnit 4. 
+                        <p> Análise de sentimentos é uma sub-área do <a href="https://pt.wikipedia.org/wiki/Processamento_de_linguagem_natural">Processamento de Linguagem Natural</a> (PLN ou NLP para
+                            sigla em inglês) na qual busca-se automatizar, através de técnicas de inteligência artificial,
+                            a detecção de sentimentos em frases, textos, entre outros dados de linguagem natural.
                         </p>
-                        <p> 
-                            JUnit Jupiter é a combinação do novo modelo de programação e modelo de extensão para 
-                            escrever testes e extensões no JUnit 5. O subprojeto Jupiter fornece um TestEngine 
-                            para executar testes baseados na plataforma Jupiter. 
+                        <p>
+                            Para esta automatização há uma vasta gama de algoritmos e técnicas de Aprendizado de máquina
+                            que buscam solucionar este problema, como exemplo o algoritmo <a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier">Naive Bayes</a>  ou as
+                            <a href="https://pt.wikipedia.org/wiki/M%C3%A1quina_de_vetores_de_suporte#:~:text=Uma%20m%C3%A1quina%20de%20vetores%20de,classifica%C3%A7%C3%A3o%20e%20an%C3%A1lise%20de%20regress%C3%A3o.">SVMs</a> .
                         </p>
-                        <p> 
-                            O JUnit Vintage fornece um TestEngine para executar testes baseados no JUnit 3 e JUnit 4 na plataforma.
+                        <p>
+                            Para a execução de um guia prático passando pelas principais etapas realizadas numa automatização
+                            deste tipo serão utilizados códigos desenvolvidos na linguagem Java nos quais serão feito
+                            chamadas para funções implementadas na ferramenta Weka que por sua vez as executará e devolverá
+                            os resultados da análise para serem avaliados.
                         </p>
-                        <p class="right"> 
-                            <a href="https://junit.org/junit5/docs/current/user-guide/#overview-what-is-junit-5" target="_blank"> (JUNIT, 2020)</a> 
-                        </p>
+                        <br>
                     </div>
-
 
                     <div class="cell small-12">
-                        &nbsp;                    
-                    </div>
-                    <div class="cell small-12">                                
                         <h3> Criando o projeto</h3>
                         <hr>
-                        <p> Vamos trabalhar neste tutorial com projeto Maven. Para isso, vá ao meu "File" -> "New Project". </p>                        
-
-                        <p> Na janela que se abre, selecione a categoria "Maven" e, em seguida, "Java Application"
-
-                        <p> Preencha os campos conforme a figura abaixo e clique no botão "Finish".<p>
-                            <img src="imagem/imagen-01.png" width="752" height="472" alt="imagen-01"/>
-
-                        <p> Observe a estrutura do projeto criado na IDE:</p>
-                        <img src="imagem/imagen-02.png" width="318" height="211" alt="imagen-02"/>
-
+                        <p> Para este tutorial valor utilizar apenas Java com a dependencia do jar do Weka. Para isso, vá ao meu "File" -> "New" -> "Project". </p>
+                        <p> Uma janela se abrirá e nela selecione "Java" no menu ao lado esquerdo </p>
+                        <p> Depois, na seção ao lado direito, selecione no menu de "Project SDK" a versão do Java 8 e clique em "Next". </p>
+                        <center><img src="imgs/NewProject.png" width="800" height="450" alt="new_project"/></center>
+                        <p> Nas aba seguinte aperte "Next". Na próxima <b>selecione</b> o nome do Projeto e a sua pasta.</p>
+                        <center><img src="imgs/NomeProject.png" width="800" height="450" alt="nome"/></center>
+                        <p> Clique em "Finish" e seu projeto será gerado.</p>
                         <br>
-                        <br>
-                        <p> Observe agora o conteúdo do arquivo <code>pom.xml</code> do projeto </p>
-                        <textarea name="pom1" rows="15" cols="20">
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>br.unesp.rc</groupId>
-    <artifactId>JUnit5Tutorial</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
-</project></textarea>
-                        <br>
-                        <p> Vamos adicionar a dependência ao projeto. Essa operação pode ser realizada de duas maneiras: </p>
-                        <p> 1 - Pela IDE, clicando com o botão direito sobre a pasta <code>Dependencies</code>; ou</p>
-                        <p> 2 - Pelo site Maven repository.</p>
-                        <br>
-                        <p> 
-                            Os passos dessas operações não serão apresentados neste tutorial. Abaixo segue o 
-                            <code>pom.xml</code> do projeto com as dependências:
-                        </p>
-                        <textarea name="pom2" rows="47" cols="20">
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>br.unesp.rc</groupId>
-    <artifactId>JUnit5Tutorial</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <junit.jupiter.version>5.6.2</junit.jupiter.version>
-    </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
-            </plugin>
-        </plugins>
-    </build>
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>    
-</project></textarea>
                     </div>
-
 
                     <div class="cell small-12">
-                        &nbsp;                    
+                        <h3> Adicionando as dependências</h3>
+                        <hr>
+                        <p> Uma vez que o projeto foi criado é necessário adicionar as dependências dele, no caso o Weka.</p>
+                        <p> Antes de tudo mova o arquivo weka.jar baixado para a pasta /src/ do projeto.</p>
+                        <p> Para adicioná-lo ao projeto, com o projeto aberto no IntelliJ, vá em "File" -> "Project Structure".</p>
+                        <p> Na janela que se abrirá ao lado esquedo no menu "Project Settings" selecione "Modules"</p>
+                        <center><img src="imgs/modules.png" width="800" height="450" alt="mod"/></center>
+                        <p> Na barra lateral ao lado direito da janela clique no simbolo "+"</p>
+                        <p> Na mini janela que abrir clique em "JARs or directories..."</p>
+                        <p> Na nova janela que abrir selecione o weka.jar seja movido para o /src/ e clique em "OK"</p>
+                        <center><img src="imgs/selectweka.png" width="755" height="440" alt="weka"/></center>
+                        <p> Com isto voltará para a janela anterior e clique em "Apply" e depois em "OK"</p>
                     </div>
+
+                        <p> O conteudo de <code>Analise.iml</code> (no caso Analise pois este é o nome dado ao meu projeto,
+                            no caso do seu ficará de acordo com o dado) do projeto deve ser próximo a isto. Como é possível
+                            visualizar o módulo do weka.jar está presente portanto espera-se que funcione.</p>
+
+<textarea name="pom1" rows="21" cols="10">
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/weka.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+</textarea>
+                    <br>
+                    </div>
+
                     <div class="cell small-12">
                         <h3> Criando o exemplo</h3>
                         <hr>
-                        <p> Vamos agora criar nosso exemplo...</p>
-                        <p> 
-                            Vamos criar uma classe <code> Vector.java </code> no pacote <code>br.unesp.rc.junit5tutorial</code> e implementar dois métodos. O primeiro recebe como parâmetro dois vetores do tipo <code>int</code> e retorno se estes são iguais. Já o segundo método recebe dois números inteiros (que representa o tamanho dos vetores) e retorna se os mesmos são iguais. Veja o código fonte desse implementação abaixo:</p>
-                        <textarea name="java1" rows="60" cols="20">
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.unesp.rc.junit5tutorial;
+                        <p> Adicionado as dependencias, prosseguiremos para o exemplo de análise de sentimentos.</p>
+                        <p> Primeiramente <a href="../../arquivos/DB.zip">CLIQUE AQUI</a> para baixar as bases de dados que iremos utilizar para treinar o modelo e depois testá-lo.</p>
+                        <p> Com o arquivo baixado descompacte-o na pasta /src/ do projeto.</p>
+                        <br>
+                        <p> Primeiramente para iniciarmos o exemplo clique sob a pasta src na aba "Project" situada ao lado direito da IDE</p>
+                        <p> Feito isto clique em "File" -> "New" -> "Java Class" e coloque o nome da classe onde será implementado o analisador.</p>
+                        <p> No caso do exemplo abaixo o nome dado foi <code>Analise.java</code>. No arquivo gerado coloque a declaração da classe do arquivo bem como a chamada para função <code>main</code>.
+                        É neste arquivo que serão feitas as chamadas para as funções da ferramente Weka com as execuções dos processos para a análise.</p>
+                        <p> Portanto é necessário importar as classes que serão usadas no projeto. As classes usadas são as sequintes:</p>
 
-/**
- *
- * @author frank
- */
-public class Vector {
+                        <textarea name="java1" rows="17" cols="20">
+import java.io.*;
+import java.util.Random;
+import weka.core.Instances;
+import weka.core.converters.TextDirectoryLoader;
+import weka.core.converters.ArffLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.filters.supervised.attribute.AttributeSelection;
+import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.evaluation.Evaluation;
 
-    private Vector() {
+public class Analise {
+    public static void main(String[] args) {
+
     }
+}
+</textarea>
 
-    /**
-     * Verifica se os vetores são iguais
-     *
-     * @param a
-     * @param b
-     * 
-     * @return verdadeiro ou false
-     */
-    public static boolean equal(int[] a, int[] b) {
-        if ((a == null) || (b == null)) {
-            throw new IllegalArgumentException("null argument");
+                        <br>
+                        <p> A primeira coisa a ser feita para construir o modelo de análise é carregar os dados.</p>
+                        <p> Como todo treinamento e teste será feito no Weka, os dados devem ser carregados no formato
+                        que a ferramente utiliza. No caso o formato é chamado ARFF, mas não é tão comum encontrar arquivos
+                        formatados neste estilo, portanto usaremos a função <code>TextDirectoryLoader</code> do próprio Weka
+                        para carregar duas pastas onde em cada uma está contida diversos arquivos com as frases usadas para treinamento.</p>
+
+                        <p> As pastas a ser utilizada é a /treino/ que estava no arquivo DB.zip baixado anteriormente  e já deve
+                        estar no /src/ do projeto. Dentro desta pasta há as duas pastas que serão utilizadas. Os nomes indicam e será
+                        serão usados pelo Weka para definir as classes dos arquivos de texto que estão nela contidos.</p>
+
+                        <p> Neste caso será utilizados dados com frases positivas (pos) ou negativas (neg). Sendo assim
+                        nosso modelo será capaz de predizer se a frase é pos ou neg.</p>
+
+                        <p> Para fazer este carregamento dos arquivos é feita a chamada das seguintes linhas de códigos:</p>
+                        <textarea name="java1" rows="10" cols="20">
+String path = "COLOQUE_AQUI_O_PATH_DA_PASTA_SRC";
+
+/* ******************* CONTRUÇÃO DO MODELO ******************** */
+/* Carregando os arquivos com as frases */
+TextDirectoryLoader converter = new TextDirectoryLoader();
+File diretorio = new File(path + "treino/");
+converter.setDirectory(diretorio);
+converter.setOutputFilename(true);
+Instances data = converter.getDataSet();
+                        </textarea>
+
+                        <p> Note que a variável <code>path</code> deve conter o caminho até a pasta src/ do projeto.</p>
+                        <p> Note também que a variavél <code>data</code> terá os dados que serão utilizados. A partir dela serão realizadas
+                        transformações nos dados para fazer a análise.</p>
+
+                        <p> Seguindo então para a segunda etapa onde é feita a transformação dos dados para serem utilizados.
+                        Esta etápa é de enorme importancia em algoritmos de Aprendizado de máquina, contudo tratando-se de
+                        um tutorial apenas para instrução de como fazer uma análise de forma simples estas transformações serão
+                        apenas básicas para adequação dos dados para execução do algoritmo que fará a análise.</p>
+
+                        <p> Com isto então será realizada duas transformações, uma para transformar as strings em vetores de palavras
+                        , isto ajudará no processamento das frases e outra etapa onde é feita uma seleção das palavras imporantes
+                        no contexto das frases, uma vez que a linguagem humana é repleta de pontos, acentos, artigos, preposições que de
+                        certa forma não agregam muito à solução do problema.</p>
+
+                        <p> Portanto a primeira transformação é realizada com o filtro <code>StringToWordVector</code> e a segunda
+                        transformação com o <code>AttributeSelection</code>, ambas classes também disponiveis no Weka. Ambas são aplicadas
+                        aos dados por meio do <code>Filter.useFilter</code>. Estes procedimentos podem ser visto no código abaixo, que devem ser adicionados logo após
+                        o carregamento dos arquivos</p>
+
+                        <textarea name="java1" rows="10" cols="20">
+/* Transformando strings em vetores de palavras */
+StringToWordVector filtro_palavras = new StringToWordVector();
+filtro_palavras.setInputFormat(data);
+Instances data_filtrada = Filter.useFilter(data, filtro_palavras);
+
+/* Fazendo a seleção das palavras relevantes */
+AttributeSelection selecao_de_atributos = new AttributeSelection();
+selecao_de_atributos.setInputFormat(data_filtrada);
+Instances data_selecionada = Filter.useFilter(data_filtrada, selecao_de_atributos);
+                        </textarea>
+
+                        <p> Chegamos então ao treinamento do analisador, no caso será utilizado o algoritmo
+                        Naive Bayes. Portanto deve-se contruir o classificador <code>NaiveBayes</code> e usar os dados
+                        transformados para treiná-lo. Este procedimento é visto abaixo.</p>
+                        <textarea name="java1" rows="4" cols="20">
+/* Treinando o classificador com os dados */
+NaiveBayes classificador = new NaiveBayes();
+classificador.buildClassifier(data_selecionada);
+                        </textarea>
+
+                        <p> Ao final destes procedimentos teremos o código da seguinte maneira implementado.</p>
+                        <textarea name="java1" rows="40" cols="20">
+import java.io.*;
+import java.util.Random;
+import weka.core.Instances;
+import weka.core.converters.TextDirectoryLoader;
+import weka.core.converters.ArffLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.filters.supervised.attribute.AttributeSelection;
+import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.evaluation.Evaluation;
+
+public class Analise {
+
+public static void main(String[] args) throws Exception {
+String path = "COLOQUE_AQUI_O_PATH_DA_PASTA_SRC";
+
+/* ******************* CONTRUÇÃO DO MODELO ******************** */
+/* Carregando os arquivos com as frases */
+TextDirectoryLoader converter = new TextDirectoryLoader();
+File diretorio = new File(path + "treino/");
+converter.setDirectory(diretorio);
+converter.setOutputFilename(true);
+Instances data = converter.getDataSet();
+
+/* Transformando strings em vetores de palavras */
+StringToWordVector filtro_palavras = new StringToWordVector();
+filtro_palavras.setInputFormat(data);
+Instances data_filtrada = Filter.useFilter(data, filtro_palavras);
+
+/* Fazendo a seleção das palavras relevantes */
+AttributeSelection selecao_de_atributos = new AttributeSelection();
+selecao_de_atributos.setInputFormat(data_filtrada);
+Instances data_selecionada = Filter.useFilter(data_filtrada, selecao_de_atributos);
+
+/* Treinando o classificador com os dados */
+NaiveBayes classificador = new NaiveBayes();
+classificador.buildClassifier(data_selecionada);
+}
+</textarea>
+                      <p> Com o classficador treinado valor avalia-lo usando uma técnica conhecida como <a href="https://pt.wikipedia.org/wiki/Valida%C3%A7%C3%A3o_cruzada"> 10-fold
+                          Cross-Validation</a>. Na qual consiste em separar os dados de treino em 10 parte e fazer iterativamente
+                      o treino com 9 partes e testá-lo com 1 de forma que todos dados serão treinados e testados. Portanto usaremos
+                      a classe <code>Evaluation</code> para realizar isto. Este processe é visto abaixo.</p>
+
+                        <textarea name="java1" rows="7" cols="20">
+/* *******************  MEDIÇÕES ******************** */
+
+Evaluation eval = new Evaluation(data_selecionada);
+eval.crossValidateModel(classificador, data_selecionada, 10, new Random(1));
+String output = eval.toSummaryString();
+System.out.println(output);
+                        </textarea>
+
+                        <p>No caso do modelo gerado apresenta uma acurácia de 81.35% nos dados. Ou seja
+                        , em média ele acerta 81.35% dos sentimentos positivos ou negativos dados a ele.</p>
+
+                        <p> Mas nada melhor que testar o modelos com dados externos a ele. Portanto vamos
+                        carregar a segunda pasta contida no arquivo BD.zip, a pasta de teste.</p>
+                        <p> Nela está contida um arquivo ARFF, ou seja, no padrão do Weka, para visualizarmos
+                        outro estilo de carregamento. Assim como antes estes dados serão transformados em vetores
+                        de palavras, mas desta vez não será feita uma seleção das palavras interessantes para
+                        que o algoritmo teste todas as nuances das frases passadas a ele.</p>
+
+                        <p> Desta forma serão feitos as chamadas da seguinte maneira:</p>
+
+                        <textarea name="java1" rows="13" cols="20">
+/* ****************** TESTE *************** */
+
+/* Carregando os dados para testar o modelo */
+File teste = new File(path+"/teste/teste2.arff");
+ArffLoader loader = new ArffLoader();
+loader.setFile(teste);
+Instances data_teste = loader.getDataSet();
+data_teste.setClassIndex(data_teste.numAttributes() - 1);
+
+/* Transformando strings em vetores de palavras */
+filtro_palavras.setInputFormat(data_teste);
+Instances data_filtrada_teste = Filter.useFilter(data_teste, filtro_palavras);
+                        </textarea>
+
+                        <p> Com isto então seguiremos para a faze final do tutorial, a predição das frases.
+                        Assim serão classificados uma a uma as frases ao classificador passado e estas terão
+                        suas classes, antes indefinidas, agora setadas para aquela que o algoritmo classificar.</p>
+
+                        <p> Para este processo é feito um loop sob as frases e elas serão classificadas, sendo este
+                        processo mostrado no seguinte código:</p>
+
+                        <textarea name="java1" rows="10" cols="20">
+/* Fazendo a predição das instancias */
+for(int i=0; i<data_teste.numInstances(); i++)
+{
+    double result = classificador.classifyInstance(data_filtrada_teste.instance(i));
+    data_teste.instance(i).setClassValue(result);
+
+    String prediction = data_teste.classAttribute().value((int)result);
+    System.out.println("Classe predita para frase " + Integer.toString(i+1)  + " é: " + prediction);
+}
+                        </textarea>
+
+
+                        <p> Ao final de todas as etapas do tutorial teremos o seguinte código:</p>
+                        <textarea name="java1" rows="73" cols="20">
+import java.io.*;
+import java.util.Random;
+import weka.core.Instances;
+import weka.core.converters.TextDirectoryLoader;
+import weka.core.converters.ArffLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.filters.supervised.attribute.AttributeSelection;
+import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.evaluation.Evaluation;
+
+public class Analise {
+
+    public static void main(String[] args) throws Exception {
+        String path = "COLOQUE_AQUI_O_PATH_DA_PASTA_SRC";
+
+        /* ******************* CONTRUÇÃO DO MODELO ******************** */
+        /* Carregando os arquivos com as frases */
+        TextDirectoryLoader converter = new TextDirectoryLoader();
+        File diretorio = new File(path + "treino/");
+        converter.setDirectory(diretorio);
+        converter.setOutputFilename(true);
+        Instances data = converter.getDataSet();
+
+        /* Transformando strings em vetores de palavras */
+        StringToWordVector filtro_palavras = new StringToWordVector();
+        filtro_palavras.setInputFormat(data);
+        Instances data_filtrada = Filter.useFilter(data, filtro_palavras);
+
+        /* Fazendo a seleção das palavras relevantes */
+        AttributeSelection selecao_de_atributos = new AttributeSelection();
+        selecao_de_atributos.setInputFormat(data_filtrada);
+        Instances data_selecionada = Filter.useFilter(data_filtrada, selecao_de_atributos);
+
+        /* Treinando o classificador com os dados */
+        NaiveBayes classificador = new NaiveBayes();
+        classificador.buildClassifier(data_selecionada);
+
+
+        /* *******************  MEDIÇÕES ******************** */
+
+        Evaluation eval = new Evaluation(data_selecionada);
+        eval.crossValidateModel(classificador, data_selecionada, 10, new Random(1));
+        String output = eval.toSummaryString();
+        System.out.println(output);
+
+        /* ****************** TESTE *************** */
+
+        /* Carregando os dados para testar o modelo */
+        File teste = new File(path+"/teste/teste2.arff");
+        ArffLoader loader = new ArffLoader();
+        loader.setFile(teste);
+        Instances data_teste = loader.getDataSet();
+        data_teste.setClassIndex(data_teste.numAttributes() - 1);
+
+        /* Transformando strings em vetores de palavras */
+        filtro_palavras.setInputFormat(data_teste);
+        Instances data_filtrada_teste = Filter.useFilter(data_teste, filtro_palavras);
+
+
+        /* Fazendo a predição das instancias */
+        for(int i=0; i<data_teste.numInstances(); i++)
+        {
+            double result = classificador.classifyInstance(data_filtrada_teste.instance(i));
+            data_teste.instance(i).setClassValue(result);
+
+            String prediction = data_teste.classAttribute().value((int)result);
+            System.out.println("O sentimento predito para frase " + Integer.toString(i+1)  + " é: " + prediction);
         }
-
-        if (a.length != b.length) {
-            return false;
-        }
-
-        for (int i = 0; i < a.length; i++) {
-            if (a[i] != b[i]) {
-                return false;
-            }
-        }
-
-        return true;
     }
+}
+                        </textarea>
+                        <p> Desta forma então conclui-se este tutorial de como realizar a análise de sentimentos
+                        em frases utilizando o Weka para isto.</p>
 
-    /**
-     * Verifica se os vetores têm o mesmo tamanho
-     * 
-     * @param a
-     * @param b
-     * 
-     * @return verdadeiro ou falso
-     */
-    public static boolean size(int a, int b) {
+                        <p> É importante salientar que isto trata-se de um processo simples servindo apenas como
+                        demonstração de como pode ser realizado um treinamento e uso de um algoritmo de Aprendizado
+                        de máquina para análise e classificação de sentimentos em frases ou textos.</p>
 
-        if ((a < 0) || (b < 0)) {
-            throw new IllegalArgumentException("Valores negativos não são permitidos!");
-        }
-
-        return a == b;
-
-    }
-}</textarea>
-                        <p>
-                            O próximo passo agora é criar os casos de testes para verificar se o código 
-                            desenvolvido realmente funciona. 
-                        </p>
-                        <p> 
-                            Para isso, vamos aproveitar um recurso interessante da IDE, que é a geração automática dos testes...
-                        </p>
-                        <p> 
-                            Clique no nome da classe e navegue pelas opções: <code>Navigate -> Go to test/Tested class</code> ou pelo atalho <code>Ctrl+Alt+T.</code>                            
-                        </p>
-                        <p> Na tela que se abre deixe marcada as seguintes opções:</p>
-                        <img src="imagem/imagen-03.png" width="422" height="535" alt="imagen-03"/>
-
-                        <br>
-                        <br>
-                        <p> Observe o conteúdo da classe <code>VectorTest.java</code> </p>
-                        <textarea name="java2" rows="48" cols="20">
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.unesp.rc.junit5tutorial;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-/**
- *
- * @author frank
- */
-public class VectorTest {
-
-    public VectorTest() {
-    }
-
-    /**
-     * Test of equal method, of class Vector.
-     */
-    @Test
-    public void testEqual() {
-        System.out.println("equal");
-        int[] a = null;
-        int[] b = null;
-        boolean expResult = false;
-        boolean result = Vector.equal(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of size method, of class Vector.
-     */
-    @Test
-    public void testSize() {
-        System.out.println("size");
-        int a = 0;
-        int b = 0;
-        boolean expResult = false;
-        boolean result = Vector.size(a, b);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-}</textarea>
-                        <br>
-                        <p> 
-                            Agora vamos modificar esses métodos para verificar se o código implementado na 
-                            classe <code>Vector.java</code> realmente funciona.
-                        </p>
-                        <p> Primeiro vamos alterar o método <code>testEqual()</code> como mostrado abaixo:</p>
-                        <textarea name="java3" rows="9" cols="20">
-@DisplayName("Testando se os vetores são iguais")
-    public void testEqual() {
-        System.out.println("equal");
-        int[] a = {1, 2, 3};
-        int[] b = {1, 2, 3};
-        boolean expResult = true;
-        boolean result = Vectors.equal(a, b);
-        assertEquals(expResult, result);
-}</textarea>
-                        <p> IMPORTANTE: Veja que no trecho acima dois vetores IGUAIS foram criados.</p>
-
-                        <p> Depois vamos alterar o método <code>testSize()</code> como mostrado abaixo:</p>
-                        <textarea name="java3" rows="9" cols="20">
-@DisplayName("Testando se os vetores são do mesmo tamanho")
-    public void testSize() {
-        System.out.println("size");
-        int[] a = {1, 2, 3};
-        int[] b = {1, 2, 3, 4};
-        boolean expResult = false;
-        boolean result = Vectors.size(a.length, b.length);
-        assertEquals(expResult, result);
-}</textarea>
-                        <p> IMPORTANTE: Veja que no trecho acima que dois vetores DIFERENTES foram criados.</p>
-                    </div>
+                        <p> Processos reais são mais bem estruturados, com tratamentos mais bem feitos e algoritmos
+                        mais elaborados. Contudo ainda sim este serve como introdução ao contexto de Análise de sentimentos
+                        entre outros usos do Processamento de Linguagem Natural.</p>
 
 
-                    <div class="cell small-12">
-                        &nbsp;                    
-                    </div>
-                    <div class="cell small-12">
-                        <h3> Rodando os testes</h3>
-                        <hr>
-                        <p> 
-                            Para executar os testes clique sobre a classe <code>VectorTest.java</code> com o 
-                            botão direito e, em seguida, clique em <code>Test File</code>. Abaixo é apresentada a tela 
-                            de execução dos testes:
-                        </p>
-                        <img src="imagem/imagen-04.png" width="847" height="448" alt="imagen-04"/>
+                        <div class="cell small-12">
+                            <h3> Bibliografia</h3>
+                            <hr>
+                            <p>
+                            Eibe Frank, Mark A. Hall, and Ian H. Witten (2016). The WEKA Workbench. Online Appendix for "Data Mining: Practical Machine Learning Tools and Techniques", Morgan Kaufmann, Fourth Edition, 2016.
+                            </p>
+                            <p>
+                            Validação cruzada. <b>Wikipédia</b>, 10 de ago. de 2020. Disponível em: < https://pt.wikipedia.org/wiki/Validação_cruzada >. Acesso em 12 de ago. de 2020.
+                            </p>
+                            <p>
+                                Processamento de linguagem natural. <b>Wikipédia</b>, 10 de ago. de 2020. Disponível em: < https://pt.wikipedia.org/wiki/Processamento_de_linguagem_natural >. Acesso em 12 de ago. de 2020.
+                            </p>
 
-                        <br>
-                        <br>
-                        <p> Observe que os dois testes foram bem sucedidos. No primeiro foram inseridos dois vetores iguais 
-                            e o resultado esperado para esse teste foi definido como <code>true</code>. Já no segundo, o resultado esperado
-                            foi definido como <code>false</code> para dois vetores de tamanho diferente.
-                        </p>
-                        <p> 
-                            Sobre o exemplo apresentado, vale destacar que mais casos de testes devem ser elaborados para comprovar
-                            que a implementação está correta. Aqui foi demonstrado apenas um caso de teste!
-                        </p>
-                        <p>
-                            Cuidado para não gerar apenas o caso de teste que funcione!!! O objetivo desse tutorial foi apresentar o funcionamento do JUnit 5 em uma IDE de desenvolvimento (Netbeans 11.3)
-                        </p>
-
-                        <p> 
-                            Para finalizar este tutorial, dois outros recursos serão comentados: ordem de execução dos testes e habilitação de testes.
-                        </p>
-
-                        <p> 
-                            A ordem dos testes é definida pela anotação <code>@Order(X)</code>, onde X é o número que presenta a ordem dos testes. Além disso,
-                            é necessário anotar a classe de teste com <code>@TestMethodOrder(MethodOrderer.OrderAnnotation.class)</code>. Veja o código completo de
-                            nossa classe de teste.
-                        </p>
-                        <textarea name="java4" rows="55" cols="20">
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package br.unesp.rc.junit5tutorial;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.TestMethodOrder;
-
-/**
- *
- * @author frank
- */
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class VectorTest {
-
-    public VectorTest() {
-    }
-
-    /**
-     * Test of equal method, of class Vector.
-     */
-    @Order(2)
-    @Test
-    @DisplayName("Testando se o vetor são iguais")
-    public void testEqual() {
-        System.out.println("equal");
-        int[] a = {1, 2, 3};
-        int[] b = {1, 2, 3};
-        boolean expResult = true;
-        boolean result = Vector.equal(a, b);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of size method, of class Vector.
-     */
-    @Order(1)
-    @Test
-    @DisplayName("Testando se os vetores são do mesmo tamanho")
-    public void testSize() {
-        System.out.println("size");
-        int[] a = {1, 2, 3};
-        int[] b = {1, 2, 3, 4};
-        boolean expResult = false;
-        boolean result = Vector.size(a.length, b.length);
-        assertEquals(expResult, result);
-    }
-
-}</textarea>
-                        <p> Veja o resultado da ordem de execução:</p>
-                        <img src="imagem/imagen-05.png" width="779" height="389" alt="imagen-05"/>
-
-                        <br>
-                        <br>
-                        <p> 
-                            Para desabilitar a execução de um teste, a anotação <code>@Disabled</code> deve ser 
-                            inserida no método desejado. Como essa operação é muito simples, a mesma não será apresentada
-                            neste tutorial. Fica por conta dos interessados!!!
-                        </p>
-                        <p> 
-                            Bem, é isso! Até a próxima! <img src="imagem/emoji.png" width="32" height="32" alt="emoji"/>
-                        </p>
-
+                            <p>
+                                Naive Bayes classifier. <b>Wikipédia</b>, 10 de ago. de 2020. Disponível em: < https://en.wikipedia.org/wiki/Naive_Bayes_classifier >. Acesso em 12 de ago. de 2020.
+                            </p>
+                        </div>
                         <div class="cell small-12">
                             <div class="callout">
                                 <div class="grid-container">
                                     <div class="grid-x grid-margin-x">
-                                        <div class="cell small-9 bold">Download do projeto completo -> </div>
+                                        <center>
                                         <div class="cell small-3">
-                                            <a href="arquivos/JUnit5Tutorial.zip" class="hollow button float-center">Clique aqui</a>
+                                            <a href="../../arquivos/AnaliseTutorial.zip" class="hollow button float-center" align="center"><h3>Clique aqui para baixar o projeto completo</h3></a>
                                         </div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div
                     </div>
 
 
