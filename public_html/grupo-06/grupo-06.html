@@ -462,11 +462,11 @@
 
 actor Administrador
 
-Administrador --> (CadastrarSentimento) : <<dados do sentimento >>
-(CadastrarSentimento) --> (ConsultaSentimentosExistentes) : <<include>>
-(ConsultaSentimentosExistentes) --> (ValidaNovoSentimento) :<<include>>
-(CadastrarSentimento) --> (ValidaImagem) : <<include>>
-(CadastrarSentimento) --> (ValidaCor) : <<include>>
+Administrador --> (CadastrarSentimento) : << dados do sentimento >>
+(CadastrarSentimento) --> (ConsultaSentimentosExistentes) : << include >>
+(ConsultaSentimentosExistentes) --> (ValidaNovoSentimento) :<< include >>
+(CadastrarSentimento) --> (ValidaImagem) : << include >>
+(CadastrarSentimento) --> (ValidaCor) : << include >>
 
 @enduml
                                         </pre>
