@@ -479,11 +479,16 @@ Administrador --> (CadastrarSentimento) : << dados do sentimento >>
                             <div class="cell small-12">
                                 <hr>                    
                             </div>
+                             <div class="cell small-12">
+                                <p class = "bold"> Ajude a Treinar o Modelo</p>
+                            </div>
                             <div class="cell small-12">
-                                <p class = "bold"> NOME-DA-FUNCIONALIDADE-2</p>                    
+                                <p>Descrição: Diagrama correspondente ao caso de uso onde o usuário pode ajudar a treinar o modelo. Este procedimento
+                                se dá através do Usuário que cadastra freases referentes ao um emoji selecionado, esta frase então
+                                é cadastrada para aquele respectivo emoji indicando tal sentimento.</p>
                             </div>
                             <div class="cell small-12 center">
-                                <img src="diagrama-de-caso-de-uso/diagrama-de-caso-de-uso.png" width="353" height="369" alt="diagrama-de-caso-de-uso"/>
+                                <img src="images/diagrama-de-casos-de-uso/treinar_modelo.png" width="700" alt="diagrama-de-caso-de-uso"/> 
                             </div>
                             <div class="cell small-12">
                                 <p class="bold">CÓDIGO FONTE: </p>
@@ -491,6 +496,21 @@ Administrador --> (CadastrarSentimento) : << dados do sentimento >>
                                     <div class="callout">
                                         <pre>
 @startuml
+
+
+(Login) as L
+(Cadastro Sentimento) as CS<<Cadastro Frase>>
+(Escolha Emoji) as CE <<Escolha imagem>>
+(Banco de Dados) as BD <<Atualização, Consulta>>
+actor :Usuário: as U<<Cliente>>
+
+
+U -> CS
+U -> CE
+CE<-.down. BD : <<extends>>
+CS<-.down. BD : <<extends>>
+U ---> (L)
+
 
 @enduml
                                         </pre>
@@ -504,10 +524,15 @@ Administrador --> (CadastrarSentimento) : << dados do sentimento >>
                                 <hr>                    
                             </div>
                             <div class="cell small-12">
-                                <p class = "bold"> NOME-DA-FUNCIONALIDADE-3</p>                    
+                                <div class="cell small-12">
+                                <p class = "bold"> Gerador de Frases com Base no Sentimento</p>
+                            </div>
+                            <div class="cell small-12">
+                                <p>Descrição: Diagrama correspondente ao caso de uso onde o usuário é gerado uma frase para o usuário com base no sentimento selecioado. Este procedimento
+                                se dá através do Usuário selecionar um sentimento e ser devolvido a ele uma frase baseada no sentimento selecionado.</p>
                             </div>
                             <div class="cell small-12 center">
-                                <img src="diagrama-de-caso-de-uso/diagrama-de-caso-de-uso.png" width="353" height="369" alt="diagrama-de-caso-de-uso"/>
+                                <img src="images/diagrama-de-casos-de-uso/gerador_frases.png" width="700" alt="diagrama-de-caso-de-uso"/>
                             </div>
                             <div class="cell small-12">
                                 <p class="bold">CÓDIGO FONTE: </p>
@@ -516,7 +541,23 @@ Administrador --> (CadastrarSentimento) : << dados do sentimento >>
                                         <pre>
 @startuml
 
+
+(Login) as L
+(Frase Gerada) as CS<<Sentimento Escolhido>>
+(Escolha Emoji) as CE <<Escolha imagem>>
+(Banco de Dados) as BD <<Consulta>>
+actor :Usuário: as U<<Cliente>>
+
+
+U -> CS
+U -> CE
+CE<-.down. BD : <<extends>>
+CS<-.down. BD : <<extends>>
+U ---> (L)
+
+
 @enduml
+
                                         </pre>
                                     </div>
                                 </div>
@@ -604,10 +645,14 @@ PaginaAnaliseConcluida --> BancoDeDados : armazena_analise_concluida()
                         </div>       
                         <div class="sequencia-2">
                             <div class="cell small-12">
-                                <p class = "bold"> NOME-DA-FUNCIONALIDADE-2</p>                    
+                                <p class = "bold">Cadastro Usuário</p>
+                            </div>
+                            <div class="cell small-12">
+                                <p>Descrição: Diagrama correspondente a sequência de funcionamento do processo de cadastro de usuário. O processo funciona com o usuário
+                                abrindo o webapp e selecionando onde será levado a tela de cadastro, caso não tenha sido cadastrado, então uma função analisa se o login e já existe e se não, continua o cadastro e se já, volta pra tela inicial .</p>
                             </div>
                             <div class="cell small-12 center">
-                                <img src="diagrama-de-sequencia/diagrama-de-sequencia.png" width="465" height="344" alt="diagrama-de-sequencia"/>
+                                <img src="images/diagrama-de-sequencia/cadastro_usuario.png" alt="diagrama-de-sequencia"/>
                             </div>
                             <div class="cell small-12">
                                 <p class="bold">CÓDIGO FONTE: </p>
@@ -615,6 +660,21 @@ PaginaAnaliseConcluida --> BancoDeDados : armazena_analise_concluida()
                                     <div class="callout">
                                         <pre>
 @startuml
+actor Usuário
+
+collections PaginaInicial 
+collections PaginaCadUsuario
+collections ProcessaCadastro
+collections EnviaEmail
+collections BancoDeDados
+
+PaginaInicial --> PaginaInicial : aguarda_opcao()
+PaginaInicial --> PaginaCadUsuario : abre_pagina()
+PaginaCadUsuario --> BancoDeDados : validar_login()
+BancoDeDados --> PaginaCadUsuario : validar_login()
+PaginaCadUsuario --> PaginaCadUsuario : aguarda_texto()
+ProcessaCadastro --> BancoDeDados : gravar_banco()
+ProcessaCadastro --> EnviaEmail : novo_usuario()
 
 @enduml
                                         </pre>
@@ -625,17 +685,39 @@ PaginaAnaliseConcluida --> BancoDeDados : armazena_analise_concluida()
                         </div> 
                         <div class="sequencia-3">
                             <div class="cell small-12">
-                                <p class = "bold"> NOME-DA-FUNCIONALIDADE-3</p>                    
+                                <p class = "bold">Histórico de Análise</p>
+                            </div>
+                            <div class="cell small-12">
+                                <p>Descrição: Diagrama correspondente a sequência de funcionamento do processo do histórico de análise. O processo funciona com o usuário
+                                abrindo o webapp e selecionando onde será levado a tela de histórico, e esta pesquisará no banco todas as frases cadastradas e, ao selecionar uma dessas frases trazidas, será feita nova pesquisa no banco que retornará o sentimento correspondente à aquela frase .</p>
                             </div>
                             <div class="cell small-12 center">
-                                <img src="diagrama-de-sequencia/diagrama-de-sequencia.png" width="465" height="344" alt="diagrama-de-sequencia"/>
+                                <img src="images/diagrama-de-sequencia/historico_analise.png" alt="diagrama-de-sequencia"/>
                             </div>
                             <div class="cell small-12">
                                 <p class="bold">CÓDIGO FONTE: </p>
                                 <div class="cell small-12">
                                     <div class="callout">
                                         <pre>
+Histórico de Análise 
+
 @startuml
+actor Usuário
+
+collections PaginaInicial 
+collections PaginaHistAnalise
+collections PaginaSentimento
+collections BancoDeDados
+
+PaginaInicial --> PaginaInicial : aguarda_opcao()
+PaginaInicial --> PaginaHistAnalise : abre_pagina()
+PaginaHistAnalise --> BancoDeDados : carrega_historico()
+BancoDeDados --> PaginaHistAnalise : carrega_historico()
+PaginaHistAnalise --> PaginaHistAnalise : aguarda_opcao()
+PaginaHistAnalise --> BancoDeDados : procura_frase()
+PaginaHistAnalise --> BancoDeDados : procura_sentimento()
+BancoDeDados --> PaginaSentimento : sentimento_encontrado()
+BancoDeDados --> PaginaSentimento : frase_encontrada()
 
 @enduml
                                         </pre>
